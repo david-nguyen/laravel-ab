@@ -42,7 +42,8 @@ class ReportCommand extends Command {
     public function fire()
     {
         $experiments = Experiment::active()->get();
-        $goals = array_unique(Goal::active()->orderBy('name')->lists('name'));
+        $goalsArray = $resultArray = json_decode(json_encode(Goal::active()->orderBy('name')->lists('name')), true);
+        $goals = array_unique($goalsArray);
 
         $columns = array_merge(['Experiment', 'Visitors', 'Engagement'], array_map('ucfirst', $goals));
 
